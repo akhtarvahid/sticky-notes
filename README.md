@@ -1,0 +1,2 @@
+# sticky-notes
+React, Typescript
