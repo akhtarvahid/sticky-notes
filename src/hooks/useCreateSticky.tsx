@@ -20,7 +20,7 @@ export const usePostSticky = () => {
     trigger: addStickyToStore,
     isMutating: isCreating,
     error: createError
-  } = useSWRMutation(BASE_STICKY_API, postRequest);
+  } = useSWRMutation(`${BASE_STICKY_API}/sticky`, postRequest);
 
   return {
     sticky,

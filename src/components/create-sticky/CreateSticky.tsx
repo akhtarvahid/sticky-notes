@@ -1,8 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CreateSticky as CreateStickyTyep  } from "../../types/create-sticky/create-sticky.type";
-import { BASE_STICKY_API } from "../../utils/env";
 
 type CreateStickyProps = {
     onCreateSticky: React.Dispatch<CreateStickyTyep>;
