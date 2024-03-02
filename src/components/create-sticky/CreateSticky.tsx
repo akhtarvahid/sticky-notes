@@ -1,18 +1,37 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
-import { Sticky } from "../../types/create-sticky/create-sticky.type";
+import { useEffect, useState } from "react";
+import {
+  Sticky,
+  StickyResponse,
+} from "../../types/create-sticky/create-sticky.type";
+import { COLORS } from "../../utils/constants";
 
 type CreateStickyProps = {
   onCreateSticky: React.Dispatch<Sticky>;
+  onUpdateSticky: React.Dispatch<Sticky>;
+  selectedSticky: StickyResponse | null;
 };
 
-const CreateSticky: React.FC<CreateStickyProps> = ({ onCreateSticky }) => {
+const CreateSticky: React.FC<CreateStickyProps> = ({
+  onCreateSticky,
+  onUpdateSticky,
+  selectedSticky,
+}) => {
   const [form, setForm] = useState<Sticky>({
     title: "",
-    tags: [],
+    tag: "",
     body: "",
   });
+
+  useEffect(() => {
+    setForm({
+      title: selectedSticky?.title || "",
+      tag: selectedSticky?.tag || "",
+      body: selectedSticky?.body || "",
+    });
+  }, [selectedSticky]);
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((f) => {
       return {
@@ -21,12 +40,39 @@ const CreateSticky: React.FC<CreateStickyProps> = ({ onCreateSticky }) => {
       };
     });
   };
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setForm((f) => {
+      return {
+        ...f,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
   const submitHandler = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    onCreateSticky(form);
+    const formProps = {
+      ...form,
+      id: Math.floor(Math.random() * 1000),
+    };
+    onCreateSticky(formProps);
     setForm({
       title: "",
-      tags: [],
+      tag: "",
+      body: "",
+    });
+  };
+
+  const updateHandler = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const formProps = {
+      ...form,
+      id: selectedSticky?.id || "",
+    };
+    onUpdateSticky(formProps);
+    setForm({
+      title: "",
+      tag: "",
       body: "",
     });
   };
@@ -44,15 +90,21 @@ const CreateSticky: React.FC<CreateStickyProps> = ({ onCreateSticky }) => {
             value={form.title || ""}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="tags">
-          <Form.Label>Tags</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter tags"
-            name="tags"
-            value={form.tags.toString() || ""}
-            onChange={handleFormChange}
-          />
+        <Form.Group className="mb-3" controlId="tag">
+          <Form.Label>Tag</Form.Label>
+          <Form.Select
+            name="tag"
+            aria-label="tag"
+            onChange={handleSelectChange}
+            value={form.tag || ""}
+          >
+            <option>Select tag color</option>
+            {COLORS.filter((color) => color.name.length < 5).map((color) => (
+              <option key={color.name} value={color.name}>
+                {color.name}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="body">
@@ -65,14 +117,25 @@ const CreateSticky: React.FC<CreateStickyProps> = ({ onCreateSticky }) => {
             onChange={handleFormChange}
           />
         </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          name="Submit"
-          onClick={submitHandler}
-        >
-          Submit
-        </Button>
+        {!selectedSticky ? (
+          <Button
+            variant="primary"
+            type="submit"
+            name="Submit"
+            onClick={submitHandler}
+          >
+            Submit
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            type="submit"
+            name="Submit"
+            onClick={updateHandler}
+          >
+            Update
+          </Button>
+        )}
       </Form>
     </>
   );
