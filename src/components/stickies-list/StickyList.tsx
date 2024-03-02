@@ -16,8 +16,8 @@ const StickyList: React.FC<{
     <>
       <h2>{deleteMsg}</h2>
       <h2>{error}</h2>
-      <div data-testid="library">
-        <h1>Library</h1>
+      <div data-testid="sticky">
+        <h1>Sticky</h1>
         <ListGroup>
           {stickies?.map((sticky: StickyResponse) => (
             <ListGroup.Item key={sticky.id}>
