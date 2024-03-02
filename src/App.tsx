@@ -4,14 +4,15 @@ import { Sticky, StickyResponse } from "./types/create-sticky/create-sticky.type
 import StickyList from "./components/stickies-list/StickyList";
 
 const stickiesData = [
-  { id: "1", title: "Blue Sticky", body: "" },
-  { id: "2", title: "Red Sticky", body: "" },
-  { id: "3", title: "Green Sticky", body: "" },
-] as unknown as Sticky[];
+   {id: '1', title: 'Shopping', body: 'created to maintain shopping lists'},
+   {id: '2', title: 'Office', body: 'created to maintain office todo'},
+   {id: '3', title: 'Groceries', body: 'created to maintain groceries lists'},
+   {id: '4', title: 'Medicines', body: 'created to maintain medicines requirement'}
+];
 
 function App() {
   const [selectedSticky, setSelectedSticky] = useState<StickyResponse | null>(null);
-  const [stickies, setStickies] = useState<Sticky[]>(stickiesData || []);
+  const [stickies, setStickies] = useState<Sticky[] | unknown[]>(stickiesData || []);
 
   const handleCreateSticky = (sticky: Sticky) => {
     setStickies((s) => [...s, sticky]);
