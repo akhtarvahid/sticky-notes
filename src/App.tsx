@@ -1,12 +1,11 @@
-import React from 'react';
 import './App.css';
-import Button from 'react-bootstrap/Button';
+import CreateSticky from './components/create-sticky/CreateSticky';
 
 function App() {
   return (
     <div className="App">
      <h1>Sticky notes</h1>
-     <Button>Button</Button>
+     <CreateSticky onCreateSticky={() => {}} />
     </div>
   );
 }
