@@ -4,7 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+# environment variables created
 .env
+src/utils/env.ts
 # testing
 /coverage
 
