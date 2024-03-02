@@ -1,4 +1,3 @@
-
 import useSWRMutation from "swr/mutation";
 import { BASE_STICKY_API } from "../utils/env";
 import { Sticky } from "../types/create-sticky/create-sticky.type";
@@ -19,14 +18,13 @@ export const usePostSticky = () => {
     data: sticky,
     trigger: addStickyToStore,
     isMutating: isCreating,
-    error: createError
+    error: createError,
   } = useSWRMutation(`${BASE_STICKY_API}/sticky`, postRequest);
 
   return {
     sticky,
     addStickyToStore,
     isCreating,
-    createError
+    createError,
   };
 };
-

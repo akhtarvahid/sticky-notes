@@ -1,6 +1,6 @@
 export type Sticky = {
    title: string;
-   tags: Tag[];
+   tag: string;
    body: string;
 }
 
