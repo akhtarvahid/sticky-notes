@@ -1,6 +1,6 @@
 
 import useSWRMutation from "swr/mutation";
-import { BASE_STICKY_API } from "../utils/constants";
+import { BASE_STICKY_API } from "../utils/env";
 import { CreateSticky } from "../types/create-sticky/create-sticky.type";
 
 // create new sticky
