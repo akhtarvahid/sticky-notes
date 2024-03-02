@@ -25,10 +25,10 @@ const StickyList: React.FC<{
               <Card.Subtitle className="mb-2 text-muted">
                 {sticky.body}
               </Card.Subtitle>
-              <Badge bg="secondary" onClick={() => deleteSticky(sticky.id)} pill>
+              <Badge bg="danger" onClick={() => deleteSticky(sticky.id)} pill>
                 Remove
               </Badge>
-              <Badge bg="secondary" onClick={() => setSelectedSticky(sticky)} pill>
+              <Badge bg="primary" onClick={() => setSelectedSticky(sticky)} pill>
                 Edit
               </Badge>
             </ListGroup.Item>
