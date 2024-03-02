@@ -16,14 +16,14 @@ async function postRequest(url: RequestInfo | URL, { arg }: { arg: Sticky }) {
 export const usePostSticky = () => {
   const {
     data: sticky,
-    trigger: addStickyToStore,
+    trigger: createSticky,
     isMutating: isCreating,
     error: createError,
   } = useSWRMutation(`${BASE_STICKY_API}/sticky`, postRequest);
 
   return {
     sticky,
-    addStickyToStore,
+    createSticky,
     isCreating,
     createError,
   };

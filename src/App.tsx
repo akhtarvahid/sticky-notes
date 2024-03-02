@@ -2,6 +2,9 @@ import { useState } from "react";
 import CreateSticky from "./components/create-sticky/CreateSticky";
 import { Sticky, StickyResponse } from "./types/create-sticky/create-sticky.type";
 import StickyList from "./components/stickies-list/StickyList";
+import { usePostSticky } from "./hooks/useCreateSticky";
+import { mutate } from "swr";
+import { BASE_STICKY_API } from "./utils/env";
 
 const stickiesData = [
    {id: '1', title: 'Shopping', body: 'created to maintain shopping lists'},
@@ -14,8 +17,17 @@ function App() {
   const [selectedSticky, setSelectedSticky] = useState<StickyResponse | null>(null);
   const [stickies, setStickies] = useState<Sticky[] | unknown[]>(stickiesData || []);
 
-  const handleCreateSticky = (sticky: Sticky) => {
+  const { createSticky, createError } = usePostSticky();
+
+
+  const handleCreateSticky = async (sticky: Sticky) => {
     setStickies((s) => [...s, sticky]);
+
+    try {
+      await createSticky(sticky);
+    } catch(err) {
+
+    }
   };
   const handleDeleteSticky = (id: string) => {
     setStickies((s) => s.filter((sticky: any) => sticky.id !== id));

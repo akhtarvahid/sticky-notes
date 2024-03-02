@@ -55,6 +55,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
       ...form,
       id: Math.floor(Math.random() * 1000),
     };
+    
     onCreateSticky(formProps);
     setForm({
       title: "",
