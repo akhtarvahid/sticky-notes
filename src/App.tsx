@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import './App.css';
+import { useState } from 'react';
 import CreateSticky from './components/create-sticky/CreateSticky';
+import { Sticky } from './types/create-sticky/create-sticky.type';
 import { BASE_STICKY_API } from './utils/env';
 import StickyList from './components/stickies-list/StickyList';
 
@@ -10,21 +10,20 @@ const stickiesData = [
   {id: '3', title: 'Green Sticky', body:''}
 ];
 function App() {
+  const [stickies, setStickies] = useState<Sticky[]>([]);
 
-  useEffect(() => {
-    const getStickies = async () => {
-      const res = await fetch(`${BASE_STICKY_API}/sticky`);
-      const stickies = await res.json();
-      console.log(stickies);
-    }
-    getStickies();
-  }, [])
 
+
+  const handleCreateSticky = (sticky: Sticky) => {
+    setStickies((s) => [...s, sticky]);
+  }
   return (
-    <div className="App">
-     <h1>Sticky notes</h1>
-     <CreateSticky onCreateSticky={() => {}} />
-     <StickyList stickies={stickiesData} deleteSticky={() => {}} setSelectedSticky={() => {}} />
+    <div className="sticky-root">
+      <div className="sticky">
+        <h1>Sticky notes</h1>
+        <CreateSticky onCreateSticky={handleCreateSticky} />
+        <StickyList stickies={stickiesData} deleteSticky={() => {}} setSelectedSticky={() => {}} />
+    </div>
     </div>
   );
 }

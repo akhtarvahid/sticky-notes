@@ -1,7 +1,7 @@
-export interface CreateSticky {
-    title: string;
-    tags: Tag[];
-    body: string;
+export type Sticky = {
+   title: string;
+   tags: Tag[];
+   body: string;
 }
 
 type Tag = {
@@ -9,7 +9,7 @@ type Tag = {
     id: string;
 }
 
-export interface StickyResponse extends CreateSticky {
+export interface StickyResponse extends Sticky {
    id: string;
    createdAt: string;
    updatedAt: string;
