@@ -1,16 +1,14 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useEffect, useState } from "react";
-import { CreateSticky as CreateStickyTyep  } from "../../types/create-sticky/create-sticky.type";
-import { BASE_STICKY_API } from "../../utils/env";
+import { useState } from "react";
+import { Sticky } from "../../types/create-sticky/create-sticky.type";
 
 type CreateStickyProps = {
-    onCreateSticky: React.Dispatch<CreateStickyTyep>;
+  onCreateSticky: React.Dispatch<Sticky>;
 };
 
 const CreateSticky: React.FC<CreateStickyProps> = ({ onCreateSticky }) => {
-
-  const [form, setForm] = useState<CreateStickyTyep>({
+  const [form, setForm] = useState<Sticky>({
     title: "",
     tags: [],
     body: "",
@@ -27,10 +25,10 @@ const CreateSticky: React.FC<CreateStickyProps> = ({ onCreateSticky }) => {
     e.preventDefault();
     onCreateSticky(form);
     setForm({
-      title: '',
+      title: "",
       tags: [],
-      body: ''
-    })
+      body: "",
+    });
   };
 
   return (

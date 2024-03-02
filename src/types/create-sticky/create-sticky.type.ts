@@ -1,4 +1,4 @@
-export type CreateSticky = {
+export type Sticky = {
    title: string;
    tags: Tag[];
    body: string;
