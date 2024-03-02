@@ -7,6 +7,10 @@
 # environment variables created
 .env
 src/utils/env.ts
+
+# hidden files
+note.md
+
 # testing
 /coverage
 
