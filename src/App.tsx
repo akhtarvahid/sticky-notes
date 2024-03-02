@@ -5,10 +5,12 @@ import { BASE_STICKY_API } from './utils/env';
 import StickyList from './components/stickies-list/StickyList';
 
 const stickiesData = [
-  {id: '1', title: 'Blue Sticky', body:''},
-  {id: '2', title: 'Red Sticky', body:''},
-  {id: '3', title: 'Green Sticky', body:''}
+   {id: '1', title: 'Shopping', body: 'created to maintain shopping lists'},
+   {id: '2', title: 'Office', body: 'created to maintain office todo'},
+   {id: '3', title: 'Groceries', body: 'created to maintain groceries lists'},
+   {id: '4', title: 'Medicines', body: 'created to maintain medicines requirement'}
 ];
+
 function App() {
   const [stickies, setStickies] = useState<Sticky[]>([]);
 
