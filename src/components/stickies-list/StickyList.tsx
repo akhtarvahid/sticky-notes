@@ -1,25 +1,19 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { Badge } from "react-bootstrap";
-import { useState } from "react";
-import { StickyResponse } from "../../types/create-sticky/create-sticky.type";
+import { Sticky } from "../../types/create-sticky/create-sticky.type";
 
 const StickyList: React.FC<{
   stickies: any;
   deleteSticky: React.Dispatch<string>;
-  setSelectedSticky: React.Dispatch<StickyResponse>;
+  setSelectedSticky: React.Dispatch<Sticky>;
 }> = ({ stickies, deleteSticky, setSelectedSticky }) => {
-  const [deleteMsg, setDeleteMsg] = useState("");
-  const [error, setError] = useState("");
-
   return (
     <>
-      <h2>{deleteMsg}</h2>
-      <h2>{error}</h2>
       <div data-testid="sticky">
         <h1>Sticky</h1>
         <ListGroup>
-          {stickies?.map((sticky: StickyResponse) => (
+          {stickies?.map((sticky: Sticky) => (
             <ListGroup.Item key={sticky.id}>
               <Card.Title>{sticky.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
@@ -28,7 +22,11 @@ const StickyList: React.FC<{
               <Badge bg="danger" onClick={() => deleteSticky(sticky.id)} pill>
                 Remove
               </Badge>
-              <Badge bg="primary" onClick={() => setSelectedSticky(sticky)} pill>
+              <Badge
+                bg="primary"
+                onClick={() => setSelectedSticky(sticky)}
+                pill
+              >
                 Edit
               </Badge>
             </ListGroup.Item>

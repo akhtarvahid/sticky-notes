@@ -1,30 +1,53 @@
-import { useState } from "react";
-import CreateSticky from "./components/create-sticky/CreateSticky";
-import { Sticky, StickyResponse } from "./types/create-sticky/create-sticky.type";
+import { useMemo, useState } from "react";
+import { Sticky, InputSticky } from "./types/create-sticky/create-sticky.type";
 import StickyList from "./components/stickies-list/StickyList";
-
-const stickiesData = [
-   {id: '1', title: 'Shopping', body: 'created to maintain shopping lists'},
-   {id: '2', title: 'Office', body: 'created to maintain office todo'},
-   {id: '3', title: 'Groceries', body: 'created to maintain groceries lists'},
-   {id: '4', title: 'Medicines', body: 'created to maintain medicines requirement'}
-];
+import {
+  useDeleteSticky,
+  useGetStickies,
+  usePostSticky,
+  useUpdateSticky,
+} from "./hooks/useStickyService";
+import CreateSticky from "./components/create-sticky/CreateSticky";
 
 function App() {
-  const [selectedSticky, setSelectedSticky] = useState<StickyResponse | null>(null);
-  const [stickies, setStickies] = useState<Sticky[] | unknown[]>(stickiesData || []);
+  const [selectedSticky, setSelectedSticky] = useState<Sticky | null>(null);
 
-  const handleCreateSticky = (sticky: Sticky) => {
-    setStickies((s) => [...s, sticky]);
+  const { data: stickiesData, isLoading: isStickyLoading } = useGetStickies();
+  const { createSticky, isCreating, createError } = usePostSticky();
+  const { deleteSticky, isDeleting, deleteError } = useDeleteSticky();
+  const { updateSticky, isUpdating, updateError } = useUpdateSticky();
+
+  const stickyList = useMemo(() => {
+    return stickiesData ? [...stickiesData].reverse() : [];
+  }, [stickiesData]);
+
+  const handleCreateSticky = async (sticky: InputSticky) => {
+    try {
+      await createSticky(sticky);
+    } catch (err) {}
   };
-  const handleDeleteSticky = (id: string) => {
-    setStickies((s) => s.filter((sticky: any) => sticky.id !== id));
+  const handleDeleteSticky = async (id: string) => {
+    try {
+      await deleteSticky(id);
+    } catch (err) {}
   };
-  const handleUpdateSticky = (sticky: any) => {
-    setStickies((s) => s.map((s: any) => (s.id === sticky.id ? sticky : s)));
+  const handleUpdateSticky = async (sticky: any) => {
+    try {
+      await updateSticky({
+        requestBody: sticky,
+        queryParams: { id: sticky.id },
+      });
+    } catch (err) {}
     setSelectedSticky(null);
   };
-  
+
+  const isLoading = isStickyLoading || isCreating || isDeleting || isUpdating;
+  const hasError = createError || deleteError || updateError;
+
+  if (hasError) {
+    return <div>Something went wrong!</div>;
+  }
+
   return (
     <div className="sticky-root">
       <div className="sticky">
@@ -35,7 +58,7 @@ function App() {
           selectedSticky={selectedSticky}
         />
         <StickyList
-          stickies={stickies}
+          stickies={stickyList}
           deleteSticky={handleDeleteSticky}
           setSelectedSticky={setSelectedSticky}
         />
