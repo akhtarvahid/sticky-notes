@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import {
   InputSticky,
   Sticky,
-} from "../../types/create-sticky/create-sticky.type";
-import { COLORS } from "../../utils/constants";
+} from "../../../types/create-sticky/create-sticky.type";
+import { COLORS } from "../../../utils/constants";
 
 export interface CreateStickyProps {
   onCreateSticky: React.Dispatch<InputSticky>;
