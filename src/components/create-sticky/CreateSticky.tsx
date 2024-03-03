@@ -2,23 +2,23 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
 import {
+  InputSticky,
   Sticky,
-  StickyResponse,
 } from "../../types/create-sticky/create-sticky.type";
 import { COLORS } from "../../utils/constants";
 
-type CreateStickyProps = {
-  onCreateSticky: React.Dispatch<Sticky>;
-  onUpdateSticky: React.Dispatch<Sticky>;
-  selectedSticky: StickyResponse | null;
-};
+interface CreateStickyProps {
+  onCreateSticky: React.Dispatch<InputSticky>;
+  onUpdateSticky: React.Dispatch<InputSticky>;
+  selectedSticky: Sticky | null;
+}
 
 const CreateSticky: React.FC<CreateStickyProps> = ({
   onCreateSticky,
   onUpdateSticky,
   selectedSticky,
 }) => {
-  const [form, setForm] = useState<Sticky>({
+  const [form, setForm] = useState<InputSticky>({
     title: "",
     tag: "",
     body: "",
@@ -55,7 +55,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
       ...form,
       id: Math.floor(Math.random() * 1000),
     };
-    
+
     onCreateSticky(formProps);
     setForm({
       title: "",
