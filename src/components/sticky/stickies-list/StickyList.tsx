@@ -1,7 +1,7 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { Badge } from "react-bootstrap";
-import { Sticky } from "../../types/create-sticky/create-sticky.type";
+import { Sticky } from "../../../types/create-sticky/create-sticky.type";
 
 const StickyList: React.FC<{
   stickies: any;
