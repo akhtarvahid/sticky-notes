@@ -20,7 +20,7 @@ beforeAll(() => {
   });
 describe('Sticky', () => {
     test('RENDER: should show table if api data fetched successfully', () => {
-        const { getByRole, queryByRole, getAllByRole } = render(<StickyIndex />);
+        render(<StickyIndex />);
         screen.debug();
     });
 })

@@ -11,8 +11,6 @@ import {
   InputSticky,
   Sticky,
 } from "../../types/create-sticky/create-sticky.type";
-import Placeholder from "react-bootstrap/Placeholder";
-import { ListGroup } from "react-bootstrap";
 import Skeleton from "../common/Skeleton";
 
 function StickyIndex() {

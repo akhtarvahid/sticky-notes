@@ -1,9 +1,6 @@
-import React from "react";
 import { ListGroup, Placeholder } from "react-bootstrap";
 
-type Props = {};
-
-export default function Skeleton({}: Props) {
+export default function Skeleton() {
   return (
     <div style={{ marginTop: 30 }}>
       <ListGroup as="ul">
