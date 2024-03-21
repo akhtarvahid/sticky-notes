@@ -11,7 +11,6 @@ const StickyList: React.FC<{
   return (
     <>
       <div data-testid="sticky">
-        <h1>Sticky</h1>
         <ListGroup>
           {stickies?.map((sticky: Sticky) => (
             <ListGroup.Item key={sticky.id}>
