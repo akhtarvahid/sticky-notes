@@ -1,0 +1,27 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+.wrapper {
+  width: 60%;
+}
+.subText {
+  text-align: initial;
+}
+.badges {
+  display: flex;
+  flex-direction: column;
+}
+.badges span {
+  margin: 3px;
+  cursor: pointer;
+}
+.badges span:first-child {
+  background: #1b9a1b !important;
+}
+.badges span:last-child {
+  background: #e25252 !important;
+}
+.books-title {
+  margin: 45px 0px 40px 0;
+}
