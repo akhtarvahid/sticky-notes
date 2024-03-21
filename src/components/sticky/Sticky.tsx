@@ -61,6 +61,7 @@ function StickyIndex() {
           onUpdateSticky={handleUpdateSticky}
           selectedSticky={selectedSticky}
         />
+        <hr />
         {isLoading ? (
           <Skeleton />
         ) : (
