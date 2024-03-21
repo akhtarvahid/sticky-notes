@@ -7,10 +7,9 @@ body {
 .sticky-root {
   display: flex;
   justify-content: center;
-  background: #577ea1;
+  /* background: #577ea1; */
 }
 .sticky {
   width: 60%;
-  background-color: #688cac;
   padding: 45px;
 }

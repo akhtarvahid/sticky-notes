@@ -3,7 +3,6 @@ import CreateSticky, { CreateStickyProps } from "../CreateSticky";
 import userEvent from '@testing-library/user-event';
 import { act } from "react-dom/test-utils";
 
-
 describe('CreateSticky', () => {
     const createStickyProps: CreateStickyProps = {
         onCreateSticky: jest.fn(),

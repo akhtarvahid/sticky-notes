@@ -1,8 +1,19 @@
 import { useMemo, useState } from "react";
 import CreateSticky from "./create-sticky/CreateSticky";
 import StickyList from "./stickies-list/StickyList";
-import { useDeleteSticky, useGetStickies, usePostSticky, useUpdateSticky } from "../../hooks/useStickyService";
-import { InputSticky, Sticky } from "../../types/create-sticky/create-sticky.type";
+import {
+  useDeleteSticky,
+  useGetStickies,
+  usePostSticky,
+  useUpdateSticky,
+} from "../../hooks/useStickyService";
+import {
+  InputSticky,
+  Sticky,
+} from "../../types/create-sticky/create-sticky.type";
+import Placeholder from "react-bootstrap/Placeholder";
+import { ListGroup } from "react-bootstrap";
+import Skeleton from "../common/Skeleton";
 
 function StickyIndex() {
   const [selectedSticky, setSelectedSticky] = useState<Sticky | null>(null);
@@ -52,11 +63,15 @@ function StickyIndex() {
           onUpdateSticky={handleUpdateSticky}
           selectedSticky={selectedSticky}
         />
-        <StickyList
-          stickies={stickyList}
-          deleteSticky={handleDeleteSticky}
-          setSelectedSticky={setSelectedSticky}
-        />
+        {isLoading ? (
+          <Skeleton />
+        ) : (
+          <StickyList
+            stickies={stickyList}
+            deleteSticky={handleDeleteSticky}
+            setSelectedSticky={setSelectedSticky}
+          />
+        )}
       </div>
     </div>
   );
