@@ -44,11 +44,21 @@ describe("Sticky POST", () => {
     fireEvent.change(selectColor, { target: { value: "GRAY" } });
     fireEvent.change(bodyInput, { target: { value: "James Clear" } });
 
-    screen.debug();
     fireEvent.click(submitBtn);
     await expect(screen.getByTestId(/Loading/i)).toBeInTheDocument();
-    //await waitFor(() => getByText('Atomic Habits'))
+    await waitFor(() => getByText('Atomic Habits'))
+  });
+});
 
-    screen.debug();
+describe("Sticky DELETE", () => {
+  test("RENDER: delete sticky from list successfully", async () => {
+    const { getByText, getAllByTestId } = render(<StickyIndex />);
+    const removeBadge = getAllByTestId(/Remove/i)[0];
+    expect(removeBadge).toBeInTheDocument();
+    
+
+    fireEvent.click(removeBadge);
+    await expect(screen.getByTestId(/Loading/i)).toBeInTheDocument();
+    await waitFor(() => getByText(/Collage/))
   });
 });
