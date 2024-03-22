@@ -101,7 +101,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
           value={form.tag || ""}
         >
           <option>Select tag color</option>
-          {COLORS.filter((color) => color.name.length < 5).map((color) => (
+          {COLORS.slice(0, 3).filter((color) => color.name.length < 5).map((color) => (
             <option key={color.name} value={color.name}>
               {color.name}
             </option>
