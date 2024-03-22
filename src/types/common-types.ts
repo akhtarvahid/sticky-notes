@@ -1,3 +1,4 @@
+import { SWRMutationConfiguration } from "swr/mutation";
 
 
 export interface Book {
@@ -17,3 +18,25 @@ export interface ErrorResponse {
     statusCode: number;
     timestamp: Date;
 }
+
+export interface ErrorResponse {
+    message: string;
+    path: string;
+    statusCode: number;
+    timestamp: Date;
+  }
+  export interface ReturnResponse<T> {
+    data: T | undefined;
+    trigger: <SWRData = T>(
+      extraArgument: RequestInit,
+      options?: SWRMutationConfiguration<
+        T,
+        ErrorResponse,
+        RequestInit,
+        string,
+        SWRData
+      >,
+    ) => Promise<T | undefined>;
+    isMutating: boolean;
+    error: ErrorResponse | undefined;
+  }

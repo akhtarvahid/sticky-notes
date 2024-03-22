@@ -85,7 +85,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
         <Form.Control
           data-testid="sticky-title"
           type="text"
-          placeholder="Enter title"
+          placeholder="Enter sticky title"
           name="title"
           onChange={handleFormChange}
           value={form.title || ""}
@@ -112,8 +112,9 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
       <Form.Group className="mb-3" controlId="body">
         <Form.Label>Body</Form.Label>
         <Form.Control
+          as="textarea"
           type="text"
-          placeholder="Body"
+          placeholder="Enter the details of sticky note"
           name="body"
           value={form.body || ""}
           onChange={handleFormChange}

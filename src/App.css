@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #577ea1de !important;
 }
 .stickies {}
 
@@ -15,4 +16,7 @@ body {
 }
 .sticky > hr {
   margin: 1.5rem 0;
+}
+label {
+  color: white;
 }
