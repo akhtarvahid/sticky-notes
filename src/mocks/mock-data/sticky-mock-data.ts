@@ -6,7 +6,7 @@ export const stickyMockData = [
         title: "Collage",
         tags: [],
         body: "previos books",
-        id: "3",
+        id: "1",
         tag: "BLUE"
     }
 ] as unknown as Sticky[];

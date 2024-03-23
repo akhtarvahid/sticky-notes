@@ -1,4 +1,5 @@
 import {
+  cleanup,
   fireEvent,
   getByText,
   render,
@@ -60,5 +61,42 @@ describe("Sticky DELETE", () => {
     fireEvent.click(removeBadge);
     await expect(screen.getByTestId(/Loading/i)).toBeInTheDocument();
     await waitFor(() => getByText(/Collage/))
+  });
+});
+
+
+describe("Sticky UPDATE", () => {
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  })
+
+  test("RENDER: update sticky from list successfully", async () => {
+    const { getByText, getAllByTestId, getByTestId, getByRole } = render(<StickyIndex />);
+    const titleInput = getByRole("textbox", { name: /title/i });
+    const selectColor = getByRole("combobox", { name: "tag" });
+    const bodyInput = getByRole("textbox", { name: /body/i });
+    const updateBadge = getByTestId(/edit/i);
+
+    expect(titleInput).toBeInTheDocument();
+    expect(selectColor).toBeInTheDocument();
+    expect(bodyInput).toBeInTheDocument();
+    expect(updateBadge).toBeInTheDocument();
+
+    fireEvent.click(updateBadge);
+
+    const updateBtn = getByRole("button", { name: /update/i });
+    expect(updateBtn).toBeInTheDocument();
+    
+    fireEvent.change(titleInput, { target: { value: "Collage v2" } });
+    fireEvent.change(selectColor, { target: { value: "GRAY" } });
+    fireEvent.change(bodyInput, { target: { value: "previous books v2" } });
+
+    //  screen.debug();
+     fireEvent.click(updateBtn);
+    await expect(screen.getByTestId(/Loading/i)).toBeInTheDocument();
+    await waitFor(() => getByText(/Collage v2/))
+    screen.debug();
+
   });
 });

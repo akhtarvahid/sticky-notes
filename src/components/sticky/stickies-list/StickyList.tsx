@@ -22,6 +22,7 @@ const StickyList: React.FC<{
                 Remove
               </Badge>
               <Badge
+                data-testid="edit"
                 bg="primary"
                 onClick={() => setSelectedSticky(sticky)}
                 pill

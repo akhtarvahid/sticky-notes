@@ -4,13 +4,13 @@ import { stickyMockData } from "./mock-data/sticky-mock-data";
 import { Sticky } from "../types/create-sticky/create-sticky.type";
 
 export const handlers = [
-  // get sticky mock
+  // get sticky
   http.get(`${BASE_STICKY_API}/sticky`, () => {
     console.log(`GET: REQUEST data`);
     return HttpResponse.json(stickyMockData, { status: 200 });
   }),
 
-  // post sticky mock
+  // post sticky
   http.post(`${BASE_STICKY_API}/sticky`, async ({ request }) => {
     const newSticky = await request.json();
     const myStickyValue = newSticky as Sticky;
@@ -35,5 +35,22 @@ export const handlers = [
     console.log('DELETED Data', JSON.stringify(deletedData));
 
     return HttpResponse.json(null, { status: 200 });
+  }),
+
+  // update sticky
+  http.put(`${BASE_STICKY_API}/sticky/:id`, async ({ request, params }) => {
+    const { id } = params;
+    const updateSticky = await request.json();
+    const myStickyValue = updateSticky as Sticky;
+
+    const list = stickyMockData.map(s => s.id == myStickyValue?.id ? updateSticky : s);
+    const updatedList = list as Sticky[];
+    stickyMockData.splice(0, stickyMockData.length);
+
+    stickyMockData.push(...updatedList);
+    console.log(`UPDATE: REQUEST for id: ${id}`);
+    console.log(`UPDATE: REQUEST data`, JSON.stringify(updatedList));
+
+    return HttpResponse.json(stickyMockData, { status: 200 });
   }),
 ];
