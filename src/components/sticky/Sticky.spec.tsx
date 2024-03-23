@@ -8,6 +8,8 @@ import {
 } from "@testing-library/react";
 import { server } from "../../mocks/server";
 import StickyIndex from "./Sticky";
+import { HttpResponse, http } from "msw";
+import { BASE_STICKY_API } from "../../utils/env";
 
 beforeAll(() => {
   // Start the interception.
@@ -45,6 +47,7 @@ describe("Sticky POST", () => {
     fireEvent.change(selectColor, { target: { value: "GRAY" } });
     fireEvent.change(bodyInput, { target: { value: "James Clear" } });
 
+    // fire an event to make API request for creating a sticky 
     fireEvent.click(submitBtn);
     await expect(screen.getByTestId(/Loading/i)).toBeInTheDocument();
     await waitFor(() => getByText('Atomic Habits'))
@@ -58,6 +61,7 @@ describe("Sticky DELETE", () => {
     expect(removeBadge).toBeInTheDocument();
     
 
+    // fire an event to make API request for removing a sticky 
     fireEvent.click(removeBadge);
     await expect(screen.getByTestId(/Loading/i)).toBeInTheDocument();
     await waitFor(() => getByText(/Collage/))
@@ -72,7 +76,7 @@ describe("Sticky UPDATE", () => {
   })
 
   test("RENDER: update sticky from list successfully", async () => {
-    const { getByText, getAllByTestId, getByTestId, getByRole } = render(<StickyIndex />);
+    const { getByText, getByTestId, getByRole } = render(<StickyIndex />);
     const titleInput = getByRole("textbox", { name: /title/i });
     const selectColor = getByRole("combobox", { name: "tag" });
     const bodyInput = getByRole("textbox", { name: /body/i });
@@ -92,11 +96,45 @@ describe("Sticky UPDATE", () => {
     fireEvent.change(selectColor, { target: { value: "GRAY" } });
     fireEvent.change(bodyInput, { target: { value: "previous books v2" } });
 
-    //  screen.debug();
-     fireEvent.click(updateBtn);
+    // fire an event to make API request for updating a sticky 
+    fireEvent.click(updateBtn);
     await expect(screen.getByTestId(/Loading/i)).toBeInTheDocument();
     await waitFor(() => getByText(/Collage v2/))
+  });
+
+  test("RENDER: update sticky API failure", async () => {
+    server.use(
+      http.put(`${BASE_STICKY_API}/sticky/:id`, async() => {
+        return HttpResponse.json(null, { status: 500 });
+      })
+    )
+    const { getByText, getByTestId, getByRole } = render(<StickyIndex />);
+    const titleInput = getByRole("textbox", { name: /title/i });
+    const selectColor = getByRole("combobox", { name: "tag" });
+    const bodyInput = getByRole("textbox", { name: /body/i });
+    const updateBadge = getByTestId(/edit/i);
+
+    expect(titleInput).toBeInTheDocument();
+    expect(selectColor).toBeInTheDocument();
+    expect(bodyInput).toBeInTheDocument();
+    expect(updateBadge).toBeInTheDocument();
+
+    fireEvent.click(updateBadge);
+
+    const updateBtn = getByRole("button", { name: /update/i });
+    expect(updateBtn).toBeInTheDocument();
+    
+    fireEvent.change(titleInput, { target: { value: "" } });
+    fireEvent.change(selectColor, { target: { value: "" } });
+    fireEvent.change(bodyInput, { target: { value: "" } });
+
     screen.debug();
+
+    // TODO: Blank form fields submission should fail API request
+
+    //fireEvent.click(updateBtn);
+     //expect(getByText(/Something went wrong!/)).toBeInTheDocument();
+    //await expect(screen.getByTestId(/Collage/i)).toBeInTheDocument();
 
   });
 });
