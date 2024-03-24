@@ -1,15 +1,11 @@
 import {
-  cleanup,
   fireEvent,
-  getByText,
   render,
   screen,
   waitFor,
 } from "@testing-library/react";
 import { server } from "../../mocks/server";
 import StickyIndex from "./Sticky";
-import { HttpResponse, http } from "msw";
-import { BASE_STICKY_API } from "../../utils/env";
 import { act } from "react-dom/test-utils";
 
 beforeAll(() => {
