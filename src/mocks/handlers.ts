@@ -43,7 +43,12 @@ export const handlers = [
     const updateSticky = await request.json();
     const myStickyValue = updateSticky as Sticky;
 
-    const list = stickyMockData.map(s => s.id == myStickyValue?.id ? updateSticky : s);
+    console.log('test data: ',id, JSON.stringify(myStickyValue));
+    if(!myStickyValue?.title && !myStickyValue?.body) {
+       return HttpResponse.error();
+    }
+
+    const list = stickyMockData.map(s => s.id == myStickyValue?.id ? myStickyValue : s);
     const updatedList = list as Sticky[];
     stickyMockData.splice(0, stickyMockData.length);
 
