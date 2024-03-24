@@ -118,6 +118,7 @@ describe("Sticky UPDATE", () => {
     fireEvent.change(selectColor, { target: { value: "" } });
     fireEvent.change(bodyInput, { target: { value: "" } });
 
+    // fire an event to make API request for updating a sticky - failure
     await act(() => {
       fireEvent.click(updateBtn);
     });

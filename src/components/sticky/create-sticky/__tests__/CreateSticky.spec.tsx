@@ -20,11 +20,11 @@ describe("CreateSticky", () => {
     const { getByRole, queryByRole, getAllByRole } = render(
       <CreateSticky {...createStickyProps} />
     );
-    expect(getByRole("button", { name: "Update" })).toBeInTheDocument();
-    expect(queryByRole("button", { name: "Submit" })).not.toBeInTheDocument();
+    expect(getByRole("button", { name: "Update" }) as HTMLButtonElement).toBeInTheDocument();
+    expect(queryByRole("button", { name: "Submit" }) as HTMLButtonElement).not.toBeInTheDocument();
 
-    expect(getAllByRole("textbox")).toHaveLength(2);
-    expect(getAllByRole("combobox")).toHaveLength(1);
+    expect(getAllByRole("textbox") as HTMLInputElement[]).toHaveLength(2);
+    expect(getAllByRole("combobox") as HTMLSelectElement[]).toHaveLength(1);
   });
   test("RENDER: should show submit button when selectedSticky is null", () => {
     const props = { ...createStickyProps, selectedSticky: null };
@@ -37,8 +37,8 @@ describe("CreateSticky", () => {
     const { getByRole, getByTestId } = render(<CreateSticky {...props} />);
 
     const titleInput = getByTestId("sticky-title");
-    const tagInput = getByRole("combobox", { name: "tag" });
-    const bodyInput = getByRole("textbox", { name: "Body" });
+    const tagInput = getByRole("combobox", { name: "tag" }) as HTMLSelectElement;
+    const bodyInput = getByRole("textbox", { name: "Body" }) as HTMLInputElement;
     expect(tagInput).toHaveValue("");
 
     act(() => {

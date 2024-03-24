@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   InputSticky,
   Sticky,
@@ -49,7 +49,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     });
   };
 
-  const submitHandler = (e: { preventDefault: () => void }) => {
+  const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const formProps = {
       ...form,
@@ -64,7 +64,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     });
   };
 
-  const updateHandler = (e: { preventDefault: () => void }) => {
+  const updateHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const formProps = {
       ...form,
