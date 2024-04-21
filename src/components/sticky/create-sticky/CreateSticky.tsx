@@ -19,16 +19,18 @@ export interface CreateStickyProps {
   selectedSticky: Sticky | null;
 }
 
+const initState = {
+  title: "",
+  tag: "",
+  body: "",
+};
+
 const CreateSticky: React.FC<CreateStickyProps> = ({
   onCreateSticky,
   onUpdateSticky,
   selectedSticky,
 }) => {
-  const [form, setForm] = useState<InputSticky>({
-    title: "",
-    tag: "",
-    body: "",
-  });
+  const [form, setForm] = useState<InputSticky>(initState);
 
   useEffect(() => {
     setForm({
@@ -63,11 +65,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     };
 
     onCreateSticky(formProps);
-    setForm({
-      title: "",
-      tag: "",
-      body: "",
-    });
+    setForm(initState);
   };
 
   const updateHandler = (e: MouseEvent<HTMLElement>) => {
@@ -77,11 +75,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
       id: selectedSticky?.id || "",
     };
     onUpdateSticky(formProps);
-    setForm({
-      title: "",
-      tag: "",
-      body: "",
-    });
+    setForm(initState);
   };
 
   return (
