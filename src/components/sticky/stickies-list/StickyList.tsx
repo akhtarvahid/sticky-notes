@@ -2,11 +2,12 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { Badge } from "react-bootstrap";
 import { Sticky } from "../../../types/create-sticky/create-sticky.type";
+import { Dispatch } from "react";
 
 const StickyList: React.FC<{
   stickies: any;
-  deleteSticky: React.Dispatch<string>;
-  setSelectedSticky: React.Dispatch<Sticky>;
+  deleteSticky: Dispatch<string>;
+  setSelectedSticky: Dispatch<Sticky>;
 }> = ({ stickies, deleteSticky, setSelectedSticky }) => {
   return (
     <>
@@ -18,7 +19,12 @@ const StickyList: React.FC<{
               <Card.Subtitle className="mb-2 text-muted">
                 {sticky.body}
               </Card.Subtitle>
-              <Badge bg="danger" data-testid="remove" onClick={() => deleteSticky(sticky.id)} pill>
+              <Badge
+                bg="danger"
+                data-testid="remove"
+                onClick={() => deleteSticky(sticky.id)}
+                pill
+              >
                 Remove
               </Badge>
               <Badge

@@ -55,7 +55,7 @@ function StickyIndex() {
   return (
     <div className="sticky-root">
       <div className="sticky">
-        <h1>Sticky notes</h1>
+        <h1>Topics note</h1>
         <CreateSticky
           onCreateSticky={handleCreateSticky}
           onUpdateSticky={handleUpdateSticky}
