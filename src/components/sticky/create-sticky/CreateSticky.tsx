@@ -1,6 +1,12 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import React, { useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  useEffect,
+  useState,
+  MouseEvent,
+} from "react";
 import {
   InputSticky,
   Sticky,
@@ -8,8 +14,8 @@ import {
 import { COLORS } from "../../../utils/constants";
 
 export interface CreateStickyProps {
-  onCreateSticky: React.Dispatch<InputSticky>;
-  onUpdateSticky: React.Dispatch<InputSticky>;
+  onCreateSticky: Dispatch<InputSticky>;
+  onUpdateSticky: Dispatch<InputSticky>;
   selectedSticky: Sticky | null;
 }
 
@@ -32,7 +38,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     });
   }, [selectedSticky]);
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm((f) => {
       return {
         ...f,
@@ -40,7 +46,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
       };
     });
   };
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setForm((f) => {
       return {
         ...f,
@@ -49,7 +55,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     });
   };
 
-  const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
+  const submitHandler = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const formProps = {
       ...form,
@@ -64,7 +70,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     });
   };
 
-  const updateHandler = (e: React.MouseEvent<HTMLElement>) => {
+  const updateHandler = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     const formProps = {
       ...form,
@@ -100,7 +106,9 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
           onChange={handleSelectChange}
           value={form.tag || ""}
         >
-          <option data-testid="color" value="">Select tag color</option>
+          <option data-testid="color" value="">
+            Select tag color
+          </option>
           {COLORS.filter((color) => color.name.length < 5).map((color) => (
             <option data-testid="color" key={color.name} value={color.name}>
               {color.name}
