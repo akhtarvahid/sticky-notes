@@ -25,3 +25,7 @@ span.badge {
   cursor: pointer;
   margin-right: 5px;
 }
+.sticky-header {
+  display: flex;
+  justify-content: space-between;
+}

@@ -12,10 +12,11 @@ import {
   Sticky,
 } from "../../types/create-sticky/create-sticky.type";
 import Skeleton from "../common/Skeleton";
+import Button from "react-bootstrap/Button";
 
 function StickyIndex() {
   const [selectedSticky, setSelectedSticky] = useState<Sticky | null>(null);
-
+  const [isCreatingSticky, setIsCreatingSticky] = useState(false);
   const { data: stickiesData, isLoading: isStickyLoading } = useGetStickies();
   const { createSticky, isCreating, createError } = usePostSticky();
   const { deleteSticky, isDeleting, deleteError } = useDeleteSticky();
@@ -55,12 +56,20 @@ function StickyIndex() {
   return (
     <div className="sticky-root">
       <div className="sticky">
-        <h1>Topics note</h1>
-        <CreateSticky
-          onCreateSticky={handleCreateSticky}
-          onUpdateSticky={handleUpdateSticky}
-          selectedSticky={selectedSticky}
-        />
+        <div className="sticky-header">
+          <h1>Topics note</h1>
+          <Button variant="primary" onClick={() => setIsCreatingSticky(true)}>
+            Create/Add
+          </Button>
+        </div>
+
+        {isCreatingSticky && (
+          <CreateSticky
+            onCreateSticky={handleCreateSticky}
+            onUpdateSticky={handleUpdateSticky}
+            selectedSticky={selectedSticky}
+          />
+        )}
         <hr />
         {isLoading ? (
           <Skeleton />
