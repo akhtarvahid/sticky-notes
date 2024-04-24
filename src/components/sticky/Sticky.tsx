@@ -66,7 +66,7 @@ function StickyIndex() {
       <div className="sticky">
         <div className="sticky-header">
           <h1>Topics note</h1>
-          <Button variant="primary" onClick={() => setIsCreatingSticky(true)}>
+          <Button className="create-btn" variant="primary" onClick={() => setIsCreatingSticky(true)}>
             Create
           </Button>
         </div>
