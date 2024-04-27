@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #577ea1de !important;
+  background-color: #12212ede !important;
 }
 .stickies {}
 
@@ -28,4 +28,11 @@ span.badge {
 .sticky-header {
   display: flex;
   justify-content: space-between;
+}
+.sticky-header h1{
+  color: #2cb3b5;
+}
+.sticky-header button {
+  background-color: #2cb3b5;
+  border-color: #07ebee;
 }
