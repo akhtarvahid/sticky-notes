@@ -30,13 +30,15 @@ function StickyIndex() {
 
   const handleCreateSticky = async (sticky: InputSticky) => {
     let response;
-    try {
-      response = await createSticky(sticky);
-    } catch (err) {}
+    if (sticky.title) {
+      try {
+        response = await createSticky(sticky);
+      } catch (err) {}
 
-    if (response) {
-      setShow(true);
-      setIsCreatingSticky(false);
+      if (response) {
+        setShow(true);
+        setIsCreatingSticky(false);
+      }
     }
   };
   const handleDeleteSticky = async (id: string) => {
