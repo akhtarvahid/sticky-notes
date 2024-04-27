@@ -13,7 +13,7 @@ import {
 } from "../../types/create-sticky/create-sticky.type";
 import Skeleton from "../common/Skeleton";
 import Button from "react-bootstrap/Button";
-import { Toast, ToastContainer } from "react-bootstrap";
+import ToastMessage from "./toast-message/ToastMessage";
 
 function StickyIndex() {
   const [selectedSticky, setSelectedSticky] = useState<Sticky | null>(null);
@@ -66,7 +66,11 @@ function StickyIndex() {
       <div className="sticky">
         <div className="sticky-header">
           <h1>Topics note</h1>
-          <Button className="create-btn" variant="primary" onClick={() => setIsCreatingSticky(true)}>
+          <Button
+            className="create-btn"
+            variant="primary"
+            onClick={() => setIsCreatingSticky(true)}
+          >
             Create
           </Button>
         </div>
@@ -89,27 +93,7 @@ function StickyIndex() {
           />
         )}
       </div>
-      <ToastContainer position="top-end">
-        <Toast
-          onClose={() => setShow(false)}
-          show={show}
-          delay={3000}
-          style={{ height: 85 }}
-          animation={true}
-          autohide
-        >
-          <Toast.Header>
-            <img
-              src="holder.js/20x20?text=%20"
-              className="rounded me-2"
-              alt=""
-            />
-            <strong className="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-          </Toast.Header>
-          <Toast.Body>Successfully created</Toast.Body>
-        </Toast>
-      </ToastContainer>
+      <ToastMessage show={show} setShow={setShow} />
     </div>
   );
 }
