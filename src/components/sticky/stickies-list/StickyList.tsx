@@ -2,28 +2,42 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { Badge } from "react-bootstrap";
 import { Sticky } from "../../../types/create-sticky/create-sticky.type";
-import { Dispatch } from "react";
-import Pagination from 'react-bootstrap/Pagination';
+import { Dispatch, useEffect, useState } from "react";
+import Pagination from "react-bootstrap/Pagination";
 
 const StickyList: React.FC<{
   stickies: any;
   deleteSticky: Dispatch<string>;
   setSelectedSticky: Dispatch<Sticky>;
 }> = ({ stickies, deleteSticky, setSelectedSticky }) => {
-  let active = 2;
-let items = [];
-for (let number = 1; number <= 5; number++) {
-  items.push(
-    <Pagination.Item key={number} active={number === active}>
-      {number}
-    </Pagination.Item>,
+  const [page, setPage] = useState(1);
+  const [stickyPerPage, setStickyPerPage] = useState(
+    stickies.slice(0, page * 5)
   );
-}
+
+  useEffect(() => {
+    setStickyPerPage(stickies.slice((page - 1) * 5, page * 5));
+  }, [page]);
+
+  let active = page;
+  let items = [];
+  for (let number = 1; number <= Math.ceil(stickies.length / 5); number++) {
+    items.push(
+      <Pagination.Item
+        key={number}
+        active={number === active}
+        onClick={() => setPage(number)}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+  console.log("total and perpage", stickies, stickyPerPage);
   return (
     <>
       <div data-testid="sticky">
         <ListGroup>
-          {stickies?.map((sticky: Sticky) => (
+          {stickyPerPage?.map((sticky: Sticky) => (
             <ListGroup.Item key={sticky.id}>
               <Card.Title>{sticky.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
@@ -50,7 +64,6 @@ for (let number = 1; number <= 5; number++) {
         </ListGroup>
         Activate pagination when data is more than 5
         <Pagination>{items}</Pagination>
-
       </div>
     </>
   );
