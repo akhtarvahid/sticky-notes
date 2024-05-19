@@ -32,10 +32,10 @@ const StickyList: React.FC<{
       </Pagination.Item>
     );
   }
-  console.log("total and perpage", stickies, stickyPerPage);
   return (
     <>
       <div data-testid="sticky">
+        <Pagination>{items}</Pagination>
         <ListGroup>
           {stickyPerPage?.map((sticky: Sticky) => (
             <ListGroup.Item key={sticky.id}>
@@ -62,8 +62,6 @@ const StickyList: React.FC<{
             </ListGroup.Item>
           ))}
         </ListGroup>
-        Activate pagination when data is more than 5
-        <Pagination>{items}</Pagination>
       </div>
     </>
   );
