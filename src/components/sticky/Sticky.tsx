@@ -15,12 +15,15 @@ import Skeleton from "../common/Skeleton";
 import Button from "react-bootstrap/Button";
 import ToastMessage from "./toast-message/ToastMessage";
 import { Alert } from "react-bootstrap";
+import AlertMsg from "../common/Alert";
 
 function StickyIndex() {
   const [selectedSticky, setSelectedSticky] = useState<Sticky | null>(null);
   const [isCreateSticky, setIsCreateSticky] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
+
+  // hooks for CRUD operations
   const { data: stickiesData, isLoading: isStickyLoading } = useGetStickies();
   const { createSticky, isCreating, createError } = usePostSticky();
   const { deleteSticky, isDeleting, deleteError } = useDeleteSticky();
@@ -70,10 +73,12 @@ function StickyIndex() {
   return (
     <>
       {error && (
-        <Alert variant="danger" onClose={() => setError(false)} dismissible>
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-          <p>Please enter a title for your sticky.</p>
-        </Alert>
+        
+        <AlertMsg 
+         title=''
+         subTitle=''
+         setError={setError}
+        />
       )}
       <div className="sticky-root">
         <div className="sticky">
