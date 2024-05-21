@@ -18,7 +18,7 @@ import { Alert } from "react-bootstrap";
 
 function StickyIndex() {
   const [selectedSticky, setSelectedSticky] = useState<Sticky | null>(null);
-  const [isCreatingSticky, setIsCreatingSticky] = useState(false);
+  const [isCreateSticky, setIsCreateSticky] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
   const { data: stickiesData, isLoading: isStickyLoading } = useGetStickies();
@@ -39,7 +39,7 @@ function StickyIndex() {
 
       if (response) {
         setShow(true);
-        setIsCreatingSticky(false);
+        setIsCreateSticky(false);
       }
     } else {
       setError(true);
@@ -82,13 +82,13 @@ function StickyIndex() {
             <Button
               className="create-btn"
               variant="primary"
-              onClick={() => setIsCreatingSticky(true)}
+              onClick={() => setIsCreateSticky(!isCreateSticky)}
             >
-              Create
+              {!isCreateSticky ? "Create" : "Hide"}
             </Button>
           </div>
 
-          {isCreatingSticky && (
+          {isCreateSticky && (
             <CreateSticky
               onCreateSticky={handleCreateSticky}
               onUpdateSticky={handleUpdateSticky}
