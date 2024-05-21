@@ -14,7 +14,6 @@ import {
 import Skeleton from "../common/Skeleton";
 import Button from "react-bootstrap/Button";
 import ToastMessage from "./toast-message/ToastMessage";
-import { Alert } from "react-bootstrap";
 import AlertMsg from "../common/Alert";
 
 function StickyIndex() {
@@ -73,11 +72,10 @@ function StickyIndex() {
   return (
     <>
       {error && (
-        
-        <AlertMsg 
-         title=''
-         subTitle=''
-         setError={setError}
+        <AlertMsg
+          title="Oh snap! You got an error!"
+          subTitle="Please enter a title for your sticky."
+          setError={setError}
         />
       )}
       <div className="sticky-root">
