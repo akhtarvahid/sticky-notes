@@ -14,13 +14,15 @@ import {
 import Skeleton from "../common/Skeleton";
 import Button from "react-bootstrap/Button";
 import ToastMessage from "./toast-message/ToastMessage";
-import { Alert } from "react-bootstrap";
+import AlertMsg from "../common/Alert";
 
 function StickyIndex() {
   const [selectedSticky, setSelectedSticky] = useState<Sticky | null>(null);
-  const [isCreatingSticky, setIsCreatingSticky] = useState(false);
+  const [isCreateSticky, setIsCreateSticky] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
+
+  // hooks for CRUD operations
   const { data: stickiesData, isLoading: isStickyLoading } = useGetStickies();
   const { createSticky, isCreating, createError } = usePostSticky();
   const { deleteSticky, isDeleting, deleteError } = useDeleteSticky();
@@ -39,7 +41,7 @@ function StickyIndex() {
 
       if (response) {
         setShow(true);
-        setIsCreatingSticky(false);
+        setIsCreateSticky(false);
       }
     } else {
       setError(true);
@@ -70,10 +72,11 @@ function StickyIndex() {
   return (
     <>
       {error && (
-        <Alert variant="danger" onClose={() => setError(false)} dismissible>
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-          <p>Please enter a title for your sticky.</p>
-        </Alert>
+        <AlertMsg
+          title="Oh snap! You got an error!"
+          subTitle="Please enter a title for your sticky."
+          setError={setError}
+        />
       )}
       <div className="sticky-root">
         <div className="sticky">
@@ -82,13 +85,13 @@ function StickyIndex() {
             <Button
               className="create-btn"
               variant="primary"
-              onClick={() => setIsCreatingSticky(true)}
+              onClick={() => setIsCreateSticky(!isCreateSticky)}
             >
-              Create
+              {!isCreateSticky ? "Create" : "Hide"}
             </Button>
           </div>
 
-          {isCreatingSticky && (
+          {isCreateSticky && (
             <CreateSticky
               onCreateSticky={handleCreateSticky}
               onUpdateSticky={handleUpdateSticky}
