@@ -40,7 +40,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     });
   }, [selectedSticky]);
 
-  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setForm((f) => {
       return {
         ...f,
@@ -48,7 +48,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
       };
     });
   };
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     setForm((f) => {
       return {
         ...f,
@@ -57,7 +57,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     });
   };
 
-  const submitHandler = (e: MouseEvent<HTMLElement>) => {
+  const submitHandler = (e: MouseEvent<HTMLElement>): void => {
     e.preventDefault();
     const formProps = {
       ...form,
@@ -68,7 +68,7 @@ const CreateSticky: React.FC<CreateStickyProps> = ({
     setForm(initState);
   };
 
-  const updateHandler = (e: MouseEvent<HTMLElement>) => {
+  const updateHandler = (e: MouseEvent<HTMLElement>): void => {
     e.preventDefault();
     const formProps = {
       ...form,

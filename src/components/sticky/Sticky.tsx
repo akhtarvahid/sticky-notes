@@ -32,8 +32,8 @@ function StickyIndex() {
     return stickiesData ? [...stickiesData].reverse() : [];
   }, [stickiesData]);
 
-  const handleCreateSticky = async (sticky: InputSticky) => {
-    let response;
+  const handleCreateSticky = async (sticky: InputSticky): Promise<void> => {
+    let response: InputSticky | undefined;
     if (sticky.title) {
       try {
         response = await createSticky(sticky);
@@ -47,12 +47,12 @@ function StickyIndex() {
       setError(true);
     }
   };
-  const handleDeleteSticky = async (id: string) => {
+  const handleDeleteSticky = async (id: string): Promise<void> => {
     try {
       await deleteSticky(id);
     } catch (err) {}
   };
-  const handleUpdateSticky = async (sticky: any) => {
+  const handleUpdateSticky = async (sticky: any): Promise<void> => {
     try {
       await updateSticky({
         requestBody: sticky,
