@@ -5,12 +5,17 @@ import { Sticky } from "../../../types/create-sticky/create-sticky.type";
 import { Dispatch, useEffect, useState } from "react";
 import Pagination from "react-bootstrap/Pagination";
 
-const StickyList: React.FC<{
+type StickyListProps = {
   stickies: any;
   deleteSticky: Dispatch<string>;
   setSelectedSticky: Dispatch<Sticky>;
-}> = ({ stickies, deleteSticky, setSelectedSticky }) => {
-  const [page, setPage] = useState(1);
+};
+const StickyList: React.FC<StickyListProps> = ({
+  stickies,
+  deleteSticky,
+  setSelectedSticky,
+}) => {
+  const [page, setPage] = useState<number>(1);
   const [stickyPerPage, setStickyPerPage] = useState(
     stickies.slice(0, page * 5)
   );
@@ -19,7 +24,7 @@ const StickyList: React.FC<{
     setStickyPerPage(stickies.slice((page - 1) * 5, page * 5));
   }, [page]);
 
-  let active = page;
+  let active: number = page;
   let items = [];
   for (let number = 1; number <= Math.ceil(stickies.length / 5); number++) {
     items.push(

@@ -6,7 +6,7 @@ type Props = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function ToastMessage({ show, setShow }: Props) {
+export default function ToastMessage({ show, setShow }: Props): JSX.Element {
   return (
     <ToastContainer position="top-end">
       <Toast
