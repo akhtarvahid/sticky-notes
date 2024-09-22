@@ -6,7 +6,7 @@ import { Sticky } from "../types/create-sticky/create-sticky.type";
 export const handlers = [
   // get sticky
   http.get(`${BASE_STICKY_API}/sticky`, () => {
-    console.log(`GET: REQUEST data`);
+    console.log(`GET REQUEST: Results`);
     return HttpResponse.json(stickyMockData, { status: 200 });
   }),
 
