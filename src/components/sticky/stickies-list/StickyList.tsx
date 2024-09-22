@@ -3,11 +3,17 @@ import Card from "react-bootstrap/Card";
 import { Badge } from "react-bootstrap";
 import { Sticky } from "../../../types/create-sticky/create-sticky.type";
 
-const StickyList: React.FC<{
+interface StickyListProps {
   stickies: any;
   deleteSticky: React.Dispatch<string>;
   setSelectedSticky: React.Dispatch<Sticky>;
-}> = ({ stickies, deleteSticky, setSelectedSticky }) => {
+}
+
+const StickyList: React.FC<StickyListProps> = ({
+  stickies,
+  deleteSticky,
+  setSelectedSticky,
+}) => {
   return (
     <>
       <div data-testid="sticky">

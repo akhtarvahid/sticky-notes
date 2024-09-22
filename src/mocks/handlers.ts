@@ -4,7 +4,7 @@ import { stickyMockData } from "./mock-data/sticky-mock-data";
 
 export const handlers = [
   http.get(`${BASE_STICKY_API}/sticky`, () => {
-    console.log(`GET REQUEST data`);
+    console.log(`GET REQUEST: Results`);
     return HttpResponse.json(stickyMockData, { status: 200 });
   })
 ];

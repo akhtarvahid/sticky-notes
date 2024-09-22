@@ -21,6 +21,6 @@ beforeAll(() => {
 describe('Sticky', () => {
     test('RENDER: should show table if api data fetched successfully', () => {
         render(<StickyIndex />);
-        screen.debug();
+        // screen.debug();
     });
 })
