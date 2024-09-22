@@ -2,7 +2,7 @@ import { ListGroup, Placeholder } from "react-bootstrap";
 
 export default function Skeleton() {
   return (
-    <div style={{ marginTop: 30 }}>
+    <div style={{ marginTop: 30 }} data-testid="loading">
       <ListGroup as="ul">
         <ListGroup.Item as="li">
           <Placeholder xs={12} size="lg" bg="light" />

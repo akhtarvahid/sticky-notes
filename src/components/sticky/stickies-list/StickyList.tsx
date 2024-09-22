@@ -2,32 +2,62 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { Badge } from "react-bootstrap";
 import { Sticky } from "../../../types/create-sticky/create-sticky.type";
+import { Dispatch, useEffect, useState } from "react";
+import Pagination from "react-bootstrap/Pagination";
 
-interface StickyListProps {
+type StickyListProps = {
   stickies: any;
-  deleteSticky: React.Dispatch<string>;
-  setSelectedSticky: React.Dispatch<Sticky>;
-}
-
+  deleteSticky: Dispatch<string>;
+  setSelectedSticky: Dispatch<Sticky>;
+};
 const StickyList: React.FC<StickyListProps> = ({
   stickies,
   deleteSticky,
   setSelectedSticky,
 }) => {
+  const [page, setPage] = useState<number>(1);
+  const [stickyPerPage, setStickyPerPage] = useState(
+    stickies.slice(0, page * 5)
+  );
+
+  useEffect(() => {
+    setStickyPerPage(stickies.slice((page - 1) * 5, page * 5));
+  }, [page]);
+
+  let active: number = page;
+  let items = [];
+  for (let number = 1; number <= Math.ceil(stickies.length / 5); number++) {
+    items.push(
+      <Pagination.Item
+        key={number}
+        active={number === active}
+        onClick={() => setPage(number)}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
   return (
     <>
       <div data-testid="sticky">
+        <Pagination>{items}</Pagination>
         <ListGroup>
-          {stickies?.map((sticky: Sticky) => (
+          {stickyPerPage?.map((sticky: Sticky) => (
             <ListGroup.Item key={sticky.id}>
               <Card.Title>{sticky.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 {sticky.body}
               </Card.Subtitle>
-              <Badge bg="danger" onClick={() => deleteSticky(sticky.id)} pill>
+              <Badge
+                bg="danger"
+                data-testid="remove"
+                onClick={() => deleteSticky(sticky.id)}
+                pill
+              >
                 Remove
               </Badge>
               <Badge
+                data-testid="edit"
                 bg="primary"
                 onClick={() => setSelectedSticky(sticky)}
                 pill

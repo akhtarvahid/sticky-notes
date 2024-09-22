@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #577ea1de !important;
+  background-color: #12212ede !important;
 }
 .stickies {}
 
@@ -16,7 +16,23 @@ body {
 }
 .sticky > hr {
   margin: 1.5rem 0;
+  border-color: white;
 }
 label {
   color: white;
+}
+span.badge {
+  cursor: pointer;
+  margin-right: 5px;
+}
+.sticky-header {
+  display: flex;
+  justify-content: space-between;
+}
+.sticky-header h1{
+  color: #2cb3b5;
+}
+.sticky-header button {
+  background-color: #2cb3b5;
+  border-color: #07ebee;
 }

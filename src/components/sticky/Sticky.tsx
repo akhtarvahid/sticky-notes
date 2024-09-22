@@ -12,10 +12,17 @@ import {
   Sticky,
 } from "../../types/create-sticky/create-sticky.type";
 import Skeleton from "../common/Skeleton";
+import Button from "react-bootstrap/Button";
+import ToastMessage from "./toast-message/ToastMessage";
+import AlertMsg from "../common/Alert";
 
 function StickyIndex() {
   const [selectedSticky, setSelectedSticky] = useState<Sticky | null>(null);
+  const [isCreateSticky, setIsCreateSticky] = useState(false);
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState(false);
 
+  // hooks for CRUD operations
   const { data: stickiesData, isLoading: isStickyLoading } = useGetStickies();
   const { createSticky, isCreating, createError } = usePostSticky();
   const { deleteSticky, isDeleting, deleteError } = useDeleteSticky();
@@ -25,17 +32,27 @@ function StickyIndex() {
     return stickiesData ? [...stickiesData].reverse() : [];
   }, [stickiesData]);
 
-  const handleCreateSticky = async (sticky: InputSticky) => {
-    try {
-      await createSticky(sticky);
-    } catch (err) {}
+  const handleCreateSticky = async (sticky: InputSticky): Promise<void> => {
+    let response: InputSticky | undefined;
+    if (sticky.title) {
+      try {
+        response = await createSticky(sticky);
+      } catch (err) {}
+
+      if (response) {
+        setShow(true);
+        setIsCreateSticky(false);
+      }
+    } else {
+      setError(true);
+    }
   };
-  const handleDeleteSticky = async (id: string) => {
+  const handleDeleteSticky = async (id: string): Promise<void> => {
     try {
       await deleteSticky(id);
     } catch (err) {}
   };
-  const handleUpdateSticky = async (sticky: any) => {
+  const handleUpdateSticky = async (sticky: any): Promise<void> => {
     try {
       await updateSticky({
         requestBody: sticky,
@@ -53,26 +70,48 @@ function StickyIndex() {
   }
 
   return (
-    <div className="sticky-root">
-      <div className="sticky">
-        <h1>Sticky notes</h1>
-        <CreateSticky
-          onCreateSticky={handleCreateSticky}
-          onUpdateSticky={handleUpdateSticky}
-          selectedSticky={selectedSticky}
+    <>
+      {error && (
+        <AlertMsg
+          title="Oh snap! You got an error!"
+          subTitle="Please enter a title for your sticky."
+          setError={setError}
         />
-        <hr />
-        {isLoading ? (
-          <Skeleton />
-        ) : (
-          <StickyList
-            stickies={stickyList}
-            deleteSticky={handleDeleteSticky}
-            setSelectedSticky={setSelectedSticky}
-          />
-        )}
+      )}
+      <div className="sticky-root">
+        <div className="sticky">
+          <div className="sticky-header">
+            <h1>Topics note</h1>
+            <Button
+              className="create-btn"
+              variant="primary"
+              onClick={() => setIsCreateSticky(!isCreateSticky)}
+            >
+              {!isCreateSticky ? "Create" : "Hide"}
+            </Button>
+          </div>
+
+          {isCreateSticky && (
+            <CreateSticky
+              onCreateSticky={handleCreateSticky}
+              onUpdateSticky={handleUpdateSticky}
+              selectedSticky={selectedSticky}
+            />
+          )}
+          <hr />
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            <StickyList
+              stickies={stickyList}
+              deleteSticky={handleDeleteSticky}
+              setSelectedSticky={setSelectedSticky}
+            />
+          )}
+        </div>
+        <ToastMessage show={show} setShow={setShow} />
       </div>
-    </div>
+    </>
   );
 }
 
